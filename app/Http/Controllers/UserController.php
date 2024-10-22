@@ -41,7 +41,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:5',
             'role' => 'required|in:admin,screener,supervisor,province,district,national',
             'poeId' => 'nullable|exists:points_of_entry,id',
         ]);
