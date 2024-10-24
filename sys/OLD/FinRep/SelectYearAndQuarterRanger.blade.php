@@ -1,0 +1,51 @@
+<div class="card-body shadow-lg pt-3 bg-light table-responsive">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ route('FinRepAcceptModule') }}" method="POST">
+                @csrf
+                {{-- <div class="mb-3 col-md-6 py-5   my-5">
+                    <label id="label" for="" class="px-5 my-5 required form-label">Select
+                        Project Module </label>
+                    <select required name="MID" class="form-select  py-5   my-5 form-select-solid" data-control="select2" data-placeholder="Select a option">
+                        <option></option>
+                        @isset($Modules)
+
+                        @foreach ($Modules as $data)
+                        <option value="{{ $data->MID }}">
+                            {{ $data->ProjectModuleName }}
+
+                        </option>
+                        @endforeach
+                        @endisset
+
+                    </select>
+
+                </div> --}}
+                <div class="mb-3 col-md-12 py-5   my-5">
+                    <label id="label" for="" class="px-5 my-5 required form-label">Select
+                       Financial Year</label>
+                        <select class="form-control" name="Year">
+                            @for ($i = date("Y") - 6; $i <= date("Y") + 1; $i++)
+                              <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                          </select>
+
+                          <input type="hidden" name="PID" value="{{$PID}}">
+
+                </div>
+                <div class="float-end my-3">
+                    <button class="btn btn-danger btn-sm shadow-lg" type="submit">
+                        Next
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
