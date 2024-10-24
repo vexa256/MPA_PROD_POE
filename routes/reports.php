@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\MainReportsController;
+use App\Http\Controllers\PrimaryScreeningController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ReportsSecondaryScreeningController;
 use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\SecondaryScreeningController;
+use App\Http\Controllers\SecondaryScreeningDataCapture;
 use Illuminate\Support\Facades\Route;
 
 // Define a route group with middleware for API and rate limiting
@@ -36,6 +40,23 @@ Route::get('/getAllCases', [MainReportsController::class, 'getAllCases']);
 Route::get('/getAllContacts', [MainReportsController::class, 'getAllContacts']);
 
 Route::get('/TravellerRoutes', [MainReportsController::class, 'TravellerRoutes']);
+
+Route::post('/secondary-screenings', [SecondaryScreeningController::class, 'store']);
+
+Route::post('/referrals', [SecondaryScreeningController::class, 'getReferrals']);
+Route::delete('/referrals', [SecondaryScreeningController::class, 'cancelReferral']);
+
+Route::post('/record-new-screening', [SecondaryScreeningDataCapture::class, 'recordNewScreening']);
+Route::post('/fetch-all-screenings', [SecondaryScreeningController::class, 'fetchAllScreenings']);
+Route::post('/retrieve-screening-details/{id}', [SecondaryScreeningController::class, 'retrieveScreeningDetails']);
+Route::put('/modify-existing-screening/{id}', [SecondaryScreeningController::class, 'modifyExistingScreening']);
+Route::delete('/remove-screening-record/{id}', [SecondaryScreeningController::class, 'removeScreeningRecord']);
+
+Route::get('/dashboard-data', [ReportsSecondaryScreeningController::class, 'getDashboardData']);
+Route::get('/primary-screenings', [PrimaryScreeningController::class, 'getScreenings']);
+
+// Route::get('reports/screening-classification-summary', [ReportsSecondaryScreeningController::class, 'screeningClassificationSummary'])
+//     ->name('reports.screening-classification-summary');
 
 // Access Reports
 // Access Reports
