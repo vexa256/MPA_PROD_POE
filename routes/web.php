@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\AlertController;
+use App\Http\Controllers\AlertDatabaseController;
+use App\Http\Controllers\CasesByDistrict;
+use App\Http\Controllers\CasesByPoe;
+use App\Http\Controllers\CasesByProvince;
+use App\Http\Controllers\CasesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GenderAndRouteAnalysis;
+use App\Http\Controllers\PrimaryScreeningDashboard;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,8 +17,33 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/getSuspectedCasesByDistrict', [CasesByDistrict::class, 'getSuspectedCasesByDistrict'])
+        ->name('getSuspectedCasesByDistrict');
+
+    Route::get('/getSuspectedCasesByPoe', [CasesByPoe::class, 'getSuspectedCasesByPoe'])->name('getSuspectedCasesByPoe');
+
+    Route::get('/SelectAlertDatabaseDiseases', [AlertDatabaseController::class, 'SelectAlertDatabaseDiseases'])
+        ->name('SelectAlertDatabaseDiseases');
+
     Route::get('/MainDashboard', [DashboardController::class, 'MainDashboard'])->name('MainDashboard');
+
+    Route::get('/GenderAndRouteAnalysisDashboard', [GenderAndRouteAnalysis::class, 'GenderAndRouteAnalysisDashboard'])
+        ->name('GenderAndRouteAnalysisDashboard');
+
+    Route::any('/getSuspectedCasesByProvince', [CasesByProvince::class, 'getSuspectedCasesByProvince'])
+        ->name('getSuspectedCasesByProvince');
+
+    Route::any('/getPriorityDiseaseAlerts', [AlertDatabaseController::class, 'getPriorityDiseaseAlerts'])
+        ->name('getPriorityDiseaseAlerts');
+
+    Route::any('/AlertReport', [AlertController::class, 'AlertReport'])->name('AlertReport');
+
+    Route::any('/casesReport', [CasesController::class, 'casesReport'])->name('CasesReport');
+
     Route::get('/', [DashboardController::class, 'MainDashboard'])->name('MainDashboard');
+    //
+    Route::any('/ScreeningVolumebyPOE', [PrimaryScreeningDashboard::class, 'ScreeningVolumebyPOE'])
+        ->name('ScreeningVolumebyPOE');
 
 });
 
