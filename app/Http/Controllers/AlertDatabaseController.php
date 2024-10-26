@@ -113,8 +113,8 @@ class AlertDatabaseController extends Controller
         }
 
         $data = [
-            'title' => 'Priority Disease Alerts',
-            'desc' => 'Detais of suspected cases for the selected priority disease.',
+            'Title' => 'Detailed Priority Disease Alerts',
+            'Desc' => 'Report of suspected cases for the selected priority disease : ' . $disease,
             'Page' => 'Alerts.AlertDisease',
             'priorityDisease' => $disease,
             'suspectedCases' => $suspectedCases,

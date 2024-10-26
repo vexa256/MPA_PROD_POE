@@ -41,15 +41,17 @@ Route::middleware(['auth'])->group(function () {
     Route::any('/casesReport', [CasesController::class, 'casesReport'])->name('CasesReport');
 
     Route::get('/', [DashboardController::class, 'MainDashboard'])->name('MainDashboard');
+
+    Route::get('/dashboard', [DashboardController::class, 'MainDashboard'])->name('dashboard');
     //
     Route::any('/ScreeningVolumebyPOE', [PrimaryScreeningDashboard::class, 'ScreeningVolumebyPOE'])
         ->name('ScreeningVolumebyPOE');
 
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
