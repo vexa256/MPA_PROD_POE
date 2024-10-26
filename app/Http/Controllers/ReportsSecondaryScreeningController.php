@@ -175,25 +175,13 @@ class ReportsSecondaryScreeningController extends Controller
     private function getRecentScreenings($query)
     {
         return (clone $query)->orderByDesc('arrival_date')
-            ->limit(10)
-            ->get([
-                'id',
-                'screening_id',
-                'traveller_name',
-                'age',
-                'gender',
-                'classification',
-                'arrival_date',
-                'suspected_diseases',
-                'departure_country',
-                'travel_destination',
-                'high_risk_alert',
-                'referral_status',
-            ])
+            ->get()
             ->map(function ($screening) {
                 try {
+                    $screening->transit_countries = json_decode($screening->transit_countries, true) ?? [];
                     $screening->suspected_diseases = json_decode($screening->suspected_diseases, true) ?? [];
                 } catch (\JsonException $e) {
+                    $screening->transit_countries = [];
                     $screening->suspected_diseases = [];
                 }
                 return $screening;
