@@ -15,7 +15,7 @@
         MenuItem($link = url('/getSuspectedCasesByProvince'), $label = 'Alerts by Province');
         MenuItem($link = url('/getSuspectedCasesByDistrict'), $label = 'Alerts by District');
         MenuItem($link = url('/getSuspectedCasesByPoe'), $label = 'Alerts by POE');
-        // MenuItem($link = url('/getSuspectedCasesByProvince'), $label = 'Alert Database');
+        MenuItem($link = url('/monthlyScreeningVolumeByPOE'), $label = 'Screening Volume');
         // MenuItem($link = url('/GenderAndRouteAnalysisDashboard'), $label = 'Gender Analytics');
         // MenuItem($link = url('/casesReport'), $label = 'Travel Route Analytics');
         ?>
