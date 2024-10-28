@@ -16,6 +16,11 @@
         MenuItem($link = url('/getSuspectedCasesByDistrict'), $label = 'Alerts by District');
         MenuItem($link = url('/getSuspectedCasesByPoe'), $label = 'Alerts by POE');
         MenuItem($link = url('/monthlyScreeningVolumeByPOE'), $label = 'Screening Volume');
+        MenuItem($link = url('/AlertVolumeByMonth'), $label = 'Alert Volume');
+        
+        MenuItem($link = url('/HighRiskAlertByMonth'), $label = 'High Risk Alerts');
+        
+        MenuItem($link = url('/SymptomDiseaseAnalysis'), $label = 'Symptom Analysis');
         // MenuItem($link = url('/GenderAndRouteAnalysisDashboard'), $label = 'Gender Analytics');
         // MenuItem($link = url('/casesReport'), $label = 'Travel Route Analytics');
         ?>
