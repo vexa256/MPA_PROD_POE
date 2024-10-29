@@ -89,4 +89,4 @@
     <script>
         window.location.href = "{{ route('login') }}";
     </script>
-@endauth
+@endauthc

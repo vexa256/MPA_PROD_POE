@@ -26,7 +26,7 @@ class ReportsSecondaryScreeningController extends Controller
 
         // Use caching to improve performance
         $cacheKey = "dashboard_data_{$poeId}_{$year}_{$month}";
-        $cacheDuration = 60 * 60; // Cache for 1 hour
+        $cacheDuration = 5; // Cache for  5 seconds
 
         return Cache::remember($cacheKey, $cacheDuration, function () use ($poeId, $startDate, $endDate) {
             $baseQuery = DB::table('secondary_screenings_data')
