@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class UserActivityController extends Controller
 {
@@ -83,7 +83,7 @@ class UserActivityController extends Controller
 
         return [
             'login_patterns' => $loginPatterns,
-            'potential_security_concerns' => $potentialSecurityConcerns
+            'potential_security_concerns' => $potentialSecurityConcerns,
         ];
     }
 }

@@ -16,7 +16,15 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+function checkAdminAndLogout()
+{
+
+}
+
 Route::middleware(['auth'])->group(function () {
+
+    // checkAdminAndLogout();
+
     Route::get('/getSuspectedCasesByDistrict', [CasesByDistrict::class, 'getSuspectedCasesByDistrict'])
         ->name('getSuspectedCasesByDistrict');
 

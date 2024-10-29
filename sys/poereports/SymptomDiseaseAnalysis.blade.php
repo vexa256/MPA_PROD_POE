@@ -1,305 +1,142 @@
+<!--begin::Card-->
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">{{ $Title }}</h3>
+    <!--begin::Card header-->
+    <div class="card-header border-0 pt-6">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold fs-3 mb-1">{{ $Title }}</span>
+        </h3>
     </div>
-    <div class="card-body">
-        <div class="alert alert-primary">
-            {{ $Desc }}
-        </div>
+    <!--end::Card header-->
 
-        <!-- Filters -->
-        <div class="row mb-5">
-            <div class="col-md-4">
-                <label class="form-label">Year</label>
-                <select class="form-select" id="year-select" name="year">
-                    @foreach ($years as $year)
-                        <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>
-                            {{ $year }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Month</label>
-                <select class="form-select" id="month-select" name="month">
-                    <option value="">All Months</option>
-                    @foreach ($months as $month)
-                        <option value="{{ $month }}" {{ $selectedMonth == $month ? 'selected' : '' }}>
-                            {{ date('F', mktime(0, 0, 0, $month, 1)) }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Point of Entry</label>
-                <select class="form-select" id="poe-select" name="poeid">
-                    <option value="">All POEs</option>
-                    @foreach ($pointsOfEntry as $poe)
-                        <option value="{{ $poe->id }}" {{ $selectedPOEId == $poe->id ? 'selected' : '' }}>
-                            {{ $poe->name }}
-                        </option>
-                    @endforeach
-                </select>
+    <!--begin::Card body-->
+    <div class="card-body py-4">
+        <!--begin::Alert-->
+        <div class="alert alert-primary d-flex align-items-center p-5 mb-10">
+            <span class="svg-icon svg-icon-2hx svg-icon-primary me-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.3"
+                        d="M12 22C13.6569 22 15 20.6569 15 19C15 17.3431 13.6569 16 12 16C10.3431 16 9 17.3431 9 19C9 20.6569 10.3431 22 12 22Z"
+                        fill="currentColor" />
+                    <path
+                        d="M19 15V18C19 18.6 18.6 19 18 19H6C5.4 19 5 18.6 5 18V15C6.1 15 7 14.1 7 13V10C7 7.6 8.7 5.6 11 5.1V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V5.1C15.3 5.6 17 7.6 17 10V13C17 14.1 17.9 15 19 15ZM11 10C11 9.4 11.4 9 12 9C12.6 9 13 8.6 13 8C13 7.4 12.6 7 12 7C10.3 7 9 8.3 9 10C9 10.6 9.4 11 10 11C10.6 11 11 10.6 11 10Z"
+                        fill="currentColor" />
+                </svg>
+            </span>
+            <div class="d-flex flex-column">
+                <h4 class="mb-1 text-dark">{{ $Desc }}</h4>
             </div>
         </div>
+        <!--end::Alert-->
 
-        <!-- Chart -->
-        <div class="row g-5 g-xl-8">
-            <div class="col-xl-12">
-                <div class="card card-xl-stretch mb-5 mb-xl-8">
-                    <div class="card-header border-0 pt-5">
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold fs-3 mb-1">Comprehensive Symptom-Disease Analysis</span>
-                            <span class="text-muted mt-1 fw-semibold fs-7">Distribution of symptoms and suspected
-                                diseases across points of entry</span>
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="comprehensive_chart" style="height: 600px;"></div>
-                    </div>
+        <!--begin::Form-->
+        <form method="GET" action="{{ route('SymptomDiseaseAnalysis') }}" class="mb-15">
+            <div class="row mb-6">
+                <div class="col-md-6 fv-row">
+                    <label for="year" class="fs-6 fw-semibold mb-2">Year</label>
+                    <input type="number" class="form-control form-control-solid" placeholder="Enter Year"
+                        id="year" name="year" value="{{ $selectedYear }}" />
                 </div>
+                <div class="col-md-6 fv-row">
+                    <label for="month" class="fs-6 fw-semibold mb-2">Month</label>
+                    <input type="number" class="form-control form-control-solid" placeholder="Enter Month"
+                        id="month" name="month" value="{{ $selectedMonth }}" />
+                </div>
+                {{-- <div class="col-md-4 fv-row">
+                    <label for="poeid" class="fs-6 fw-semibold mb-2">POE</label>
+                    <select class="form-select form-select-solid" data-control="select2" data-placeholder="Select POE"
+                        id="poeid" name="poeid">
+                        <option value="">All</option>
+                        @foreach ($pointsOfEntry as $poe)
+                            <option value="{{ $poe->id }}" {{ $selectedPOEId == $poe->id ? 'selected' : '' }}>
+                                {{ $poe->name }}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
             </div>
-        </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">Filter</span>
+                    <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+            </div>
+        </form>
+        <!--end::Form-->
+
+        <!--begin::Chart-->
+        <div id="symptomDiseaseChart"></div>
+        <!--end::Chart-->
     </div>
+    <!--end::Card body-->
 </div>
+<!--end::Card-->
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const heatmapData = @json($HeatmapData);
-        const stackedBarData = @json($StackedBarData);
+        const data = @json($StackedBarData);
+        const seriesData = [];
+        const categories = [];
 
-        console.log('Heatmap Data:', heatmapData);
-        console.log('Stacked Bar Data:', stackedBarData);
-
-        // Function to parse JSON strings
-        function parseJsonString(str) {
-            try {
-                return JSON.parse(str);
-            } catch (e) {
-                console.error('Error parsing JSON:', e);
-                return [];
-            }
-        }
-
-        // Extract unique POEs, diseases, and symptoms
-        const poes = [...new Set(stackedBarData.map(item => item.poe_name))];
-        const diseases = [...new Set(stackedBarData.map(item => {
-            const parsedDisease = item.disease ? parseJsonString(item.disease)[0] : 'Unknown';
-            return parsedDisease || 'Unknown';
-        }))];
-        const symptoms = [...new Set(heatmapData.flatMap(item => {
-            const parsedSymptoms = parseJsonString(item.symptom);
-            return Array.isArray(parsedSymptoms) ? parsedSymptoms : [];
-        }))];
-
-        // Prepare data for the chart
-        const series = diseases.map(disease => ({
-            name: disease,
-            data: poes.map(poe => {
-                const entries = stackedBarData.filter(item =>
-                    item.poe_name === poe &&
-                    (item.disease ? parseJsonString(item.disease)[0] : 'Unknown') ===
-                    disease
-                );
-                const totalCount = entries.reduce((sum, entry) => sum + entry.symptom_count,
-                    0);
+        // Extract categories (POEs) and series (diseases with symptoms and counts)
+        Object.entries(data).forEach(([poeName, diseases]) => {
+            categories.push(poeName);
+            const poeSeries = Object.entries(diseases).map(([disease, symptoms]) => {
                 return {
-                    x: poe,
-                    y: totalCount,
-                    symptoms: symptoms.map(symptom => {
-                        const matchingHeatmapEntries = heatmapData.filter(item =>
-                            item.poe_id === entries[0]?.poe_id &&
-                            parseJsonString(item.disease)[0] === disease &&
-                            parseJsonString(item.symptom).includes(symptom)
-                        );
-                        return matchingHeatmapEntries.reduce((sum, entry) => sum +
-                            entry.frequency, 0);
-                    })
+                    name: disease,
+                    data: Object.keys(symptoms).map(symptom => ({
+                        x: symptom,
+                        y: symptoms[symptom]
+                    }))
                 };
-            })
-        }));
+            });
+            seriesData.push(...poeSeries);
+        });
 
         const options = {
-            series: series,
             chart: {
                 type: 'bar',
-                height: 600,
                 stacked: true,
-                toolbar: {
-                    show: true
-                },
-                zoom: {
-                    enabled: true
-                },
-                events: {
-                    dataPointSelection: function(event, chartContext, config) {
-                        const dataPoint = config.w.config.series[config.seriesIndex].data[config
-                            .dataPointIndex];
-                        showSymptomBreakdown(dataPoint, config.w.config.series[config.seriesIndex]
-                        .name);
-                    }
-                }
+                height: 500,
+                width: '100%',
             },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom',
-                        offsetX: -10,
-                        offsetY: 0
-                    }
-                }
-            }],
             plotOptions: {
                 bar: {
                     horizontal: false,
-                    borderRadius: 5,
                     dataLabels: {
-                        total: {
-                            enabled: true,
-                            style: {
-                                fontSize: '13px',
-                                fontWeight: 900
-                            }
-                        }
+                        position: 'top'
                     }
-                },
+                }
             },
+            series: seriesData,
             xaxis: {
-                categories: poes,
-                labels: {
-                    rotate: -45,
-                    trim: true,
-                    maxHeight: 120
+                categories: categories,
+                title: {
+                    text: 'Points of Entry (POE)'
                 }
             },
             yaxis: {
                 title: {
-                    text: 'Number of Cases'
-                },
-            },
-            legend: {
-                position: 'right',
-                offsetY: 40
-            },
-            fill: {
-                opacity: 1
-            },
-            colors: ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#775DD0', '#546E7A', '#26a69a',
-                '#D10CE8'],
-            title: {
-                text: 'Comprehensive Symptom-Disease Analysis by Point of Entry',
-                align: 'center',
-                style: {
-                    fontSize: '18px'
+                    text: 'Symptom Count'
                 }
             },
-            dataLabels: {
-                enabled: false
+            title: {
+                text: 'Common Reported Symptoms by Disease and POE',
+                align: 'center'
             },
             tooltip: {
                 y: {
-                    formatter: function(val) {
-                        return val + " cases"
-                    }
+                    formatter: val => `${val} case(s)`
                 }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
             }
         };
 
-        try {
-            const chart = new ApexCharts(document.querySelector("#comprehensive_chart"), options);
-            chart.render();
-        } catch (error) {
-            console.error('Error rendering chart:', error);
-            document.querySelector("#comprehensive_chart").innerHTML =
-                '<p class="text-danger">Error: Unable to render chart. Please check the console for more details.</p>';
-        }
-
-        function showSymptomBreakdown(dataPoint, disease) {
-            const symptomBreakdown = dataPoint.symptoms.map((count, index) => ({
-                x: symptoms[index],
-                y: count
-            })).filter(item => item.y > 0).sort((a, b) => b.y - a.y);
-
-            const breakdownOptions = {
-                series: [{
-                    name: 'Symptom Frequency',
-                    data: symptomBreakdown.map(item => item.y)
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 350
-                },
-                plotOptions: {
-                    bar: {
-                        borderRadius: 4,
-                        horizontal: true,
-                    }
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                xaxis: {
-                    categories: symptomBreakdown.map(item => item.x),
-                },
-                title: {
-                    text: `Symptom Breakdown for ${disease} at ${dataPoint.x}`,
-                    align: 'center'
-                }
-            };
-
-            // Create a modal to display the symptom breakdown
-            const modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.left = '0';
-            modal.style.top = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
-            modal.style.display = 'flex';
-            modal.style.justifyContent = 'center';
-            modal.style.alignItems = 'center';
-
-            const modalContent = document.createElement('div');
-            modalContent.style.backgroundColor = 'white';
-            modalContent.style.padding = '20px';
-            modalContent.style.borderRadius = '10px';
-            modalContent.style.width = '80%';
-            modalContent.style.maxWidth = '800px';
-
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Close';
-            closeButton.className = 'btn btn-secondary mt-3';
-            closeButton.onclick = function() {
-                document.body.removeChild(modal);
-            };
-
-            const chartDiv = document.createElement('div');
-            modalContent.appendChild(chartDiv);
-            modalContent.appendChild(closeButton);
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-
-            try {
-                const breakdownChart = new ApexCharts(chartDiv, breakdownOptions);
-                breakdownChart.render();
-            } catch (error) {
-                console.error('Error rendering breakdown chart:', error);
-                chartDiv.innerHTML =
-                    '<p class="text-danger">Error: Unable to render symptom breakdown. Please check the console for more details.</p>';
-            }
-        }
-
-        // Event listener for filter changes
-        document.querySelectorAll('#year-select, #month-select, #poe-select').forEach(select => {
-            select.addEventListener('change', function() {
-                const year = document.getElementById('year-select').value;
-                const month = document.getElementById('month-select').value;
-                const poe = document.getElementById('poe-select').value;
-                window.location.href =
-                    `{{ route('SymptomDiseaseAnalysis') }}?year=${year}&month=${month}&poeid=${poe}`;
-            });
-        });
+        const chart = new ApexCharts(document.querySelector("#symptomDiseaseChart"), options);
+        chart.render();
     });
 </script>

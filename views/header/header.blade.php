@@ -68,3 +68,25 @@
 </head>
 <!--end::Head-->
 <!--begin::Body-->
+
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
+@auth
+    @if (Auth::user()->role !== 'admin')
+        @php
+            Auth::logout();
+            session()->invalidate();
+            session()->regenerateToken();
+        @endphp
+        <script>
+            window.location.href = "{{ route('login') }}";
+        </script>
+    @else
+    @endif
+@else
+    <script>
+        window.location.href = "{{ route('login') }}";
+    </script>
+@endauth

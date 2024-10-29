@@ -9,6 +9,16 @@ class DashboardController extends Controller
 
     public function MainDashboard()
     {
+
+        // if (!Auth::check() || Auth::user()->role !== 'admin') {
+
+        //     dd(Auth::user()->role);
+        //     Auth::logout();
+        //     session()->invalidate();
+        //     session()->regenerateToken();
+        //     return redirect('/login')->with('error', 'Access denied. Admin privileges required.');
+        // }
+        // dd(Auth::user()->role);
         // Get the distribution of POEs by type
         $poeDistribution = DB::table('points_of_entry')
             ->select('type', DB::raw('COUNT(*) as total'))
