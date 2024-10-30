@@ -101,7 +101,7 @@ class SecondaryScreeningDataCapture extends Controller
             $recipients = [
                 env('MINISTRY_OF_HEALTH_EMAIL', 'atimothy@ecsahc.org'),
                 'nsekuye.olivier003@gmail.com',
-                'chris@ecsahc.org',
+                'chris@ecsahc.org', 'jessrurangwa@gmail.com', 'sandrine.uwamahoro@rbc.gov.rw', 'ruyangelaurent@gmail.com',
             ];
             $subject = 'Alert: ' . $screeningData['classification'] . ' - POE Screening Notification';
 
