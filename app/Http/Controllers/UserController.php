@@ -105,11 +105,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'sometimes|required|string|max:255|unique:users,username,' . $id,
-            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'sometimes|required|string|min:8',
+            // 'username' => 'sometimes|required|string|max:255|unique:users,username,' . $id,
+            // 'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
+            // 'password' => 'sometimes|required|string|min:14',
             'role' => 'sometimes|required|in:admin,screener,supervisor,province,district,national',
-            'poeId' => 'nullable|exists:points_of_entry,id',
+            // 'poeId' => 'nullable|exists:points_of_entry,id',
         ]);
 
         if ($validator->fails()) {
