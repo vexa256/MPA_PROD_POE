@@ -98,10 +98,11 @@ class SecondaryScreeningDataCapture extends Controller
     private function sendScreeningAlert(array $screeningData)
     {
         try {
+
             $recipients = [
-                env('MINISTRY_OF_HEALTH_EMAIL', 'atimothy@ecsahc.org'),
+                env('MINISTRY_OF_HEALTH_EMAIL', 'atimothy@ecsahc.org', 'poe.screenings@rbc.gov.rw'),
                 'nsekuye.olivier003@gmail.com',
-                'chris@ecsahc.org', 'jessrurangwa@gmail.com', 'sandrine.uwamahoro@rbc.gov.rw', 'ruyangelaurent@gmail.com',
+                'chris@ecsahc.org', 'jessrurangwa@gmail.com', 'sandrine.uwamahoro@rbc.gov.rw', 'ruyangelaurent@gmail.com', 'ckayobotsi@gmail.com', 'adeline.kabeja@rbc.gov.rw',
             ];
             $subject = 'Alert: ' . $screeningData['classification'] . ' - POE Screening Notification';
 
